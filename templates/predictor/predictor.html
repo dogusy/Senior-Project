@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+ <!-- Showcase -->
+  <section id="showcase">
+    <div class="container text-center">
+      <div class="home-search p-5">
+        <div class="overlay p-5">
+          <h1 class="display-4 mb-4">
+            Predict Real Estate Price
+          </h1>
+          <p class="lead">Please fill all areas.</p>
+          <div class="container-fluid">
+                {% include 'partials/_alerts.html' %}
+
+            <form action="{% url 'predict' %}" method="POST">
+              {% csrf_token %}
+
+              <!-- Form Row 1 -->
+              <div class="col-md-4 offset-md-4 mb-1">
+                  <label for="propertytype">Property Type</label>
+                  <select name="propertytype" id="propertytype" class="form-control" required>
+                    <option selected="true" disabled="disabled">Property Type</option>
+                    <option value="1">Apartment</option>
+                    <option value="2">Detached House</option></select>
+                </div>
+                <div class="col-md-4 offset-md-4 mb-1">
+                  <label for="address">Adress</label>
+                  <input type="text" id="address" name="address" class="form-control" placeholder="Adress" required>
+                </div>
+
+                <div class="col-md-4 offset-md-4 mb-1" >
+                  <label for="bahtroom" >Bahtroom</label>
+                  <input type="number" id="bahtroom" name="bahtroom" class="form-control" placeholder="Bahtroom" required>
+                </div>
+                <div class="col-md-4 offset-md-4 mb-1" >
+                  <label for="livingroom">Livingroom</label>
+                  <input type="number" id="livingroom" name="livingroom" class="form-control" placeholder="Livingroom" required>
+                </div>
+                <div class="col-md-4 offset-md-4 mb-1" >
+                  <label for="bedroom">Bedroom</label>
+                  <input type="number" id="bedroom" name="bedroom" class="form-control" placeholder="Bedroom" required>
+                </div>
+                <div class="col-md-4 offset-md-4 mb-1" >
+                  <label for="netarea">Area</label>
+                  <input type="number" id="netarea" name="netarea" class="form-control" placeholder="Area" required>
+                </div>
+                <div class="col-md-4 offset-md-4 mb-1" >
+                  <label for="age">Building Age</label>
+                  <input type="number" name="age" id="age" class="form-control" placeholder="Building Age" required>
+                </div>
+
+                <div class="col-md-4 offset-md-4 mb-1">
+                  <label for="state">Warming Type</label>
+                  <select name="state" id="state" class="form-control" required>
+                    <option selected="true" disabled="disabled" >Warming Type</option >
+                   {% for key,value in warming_type.items %}
+                      <option value="{{ key }}"
+                      {% if key == values.state %}
+                              selected
+                              {% endif %}
+                      >{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-4 offset-md-4 mb-1 " >
+                  <label for="floornum">Floor Number</label>
+                  <input type="number" name="floornum" id="floornum" class="form-control" placeholder="Floor Number" required>
+                </div>
+                <div class="col-md-4 offset-md-4 mb-1" >
+                  <label for="totalfloor">Total Floor</label>
+                  <input type="number" name="totalfloor" id="totalfloor"class="form-control" placeholder="Total Floor" required>
+                </div>
+
+              <button class="btn btn-secondary  mt-4 mb-1" type="submit">Submit form</button>
+            </form>
+            <div class="col-md-6 offset-md-4 mb-1" style="
+   width: 309px;
+  height: 67.3px;
+font-weight: 500;
+color: #525252;
+text-align: center;
+background-color: #fff;
+border: solid 1.6px #009cfb;
+border-radius: 8px;">
+            <p class="h3">
+               {% if predicted == 150000.0 or predicted == 143001.0 %}
+                No Result
+              {% elif predicted %}
+              Predicted Price : {{ predicted }} TL
+
+              {% else %}
+              No Result
+              {% endif %}
+            </p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}

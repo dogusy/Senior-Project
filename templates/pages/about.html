@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+ <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+              <!-- we added this name in pages/urls.py thats how we call it. And we call pages in realestate/url-->
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> About</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="about" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Search For The Perfect Home</h2>
+          <img src="{% static 'img/about.jpg' %}" alt="">
+          <p class="mt-4">
+          Inesdo is the real estate listing and predicing system for real estate agents.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+{% endblock %}
